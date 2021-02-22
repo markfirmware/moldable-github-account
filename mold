@@ -5,6 +5,7 @@ GLAM=GlamorousToolkitLinux64-$VERSION
 
 if [[ ! -d $GLAM ]]
 then
+    echo installing $GLAM ...
     wget -q https://dl.feenk.com/gt/GlamorousToolkitLinux64-$VERSION.zip
     unzip -q Glamorous*.zip
     rm Glamorous*.zip
