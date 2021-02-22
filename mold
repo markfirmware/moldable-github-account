@@ -34,6 +34,6 @@ pushd $GLAM >& /dev/null
     echo starting $GLAM
     ./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
 
-popd >_ /dev/null
+popd >& /dev/null
 
 git status
