@@ -1,7 +1,10 @@
 (IceRepository registry
     anySatisfy: [ :repo | repo location = '..' asFileReference])
         ifFalse: [
-            (IceRepositoryCreator new
+            | repo |
+            repo := IceRepositoryCreator new
                 location: '..' asFileReference;
-                createRepository) register
+                createRepository.
+            repo register.
+            repo workingCopy packages do: [ :p | p load ]
         ]
