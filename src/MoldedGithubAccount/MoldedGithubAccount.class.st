@@ -53,6 +53,11 @@ MoldedGithubAccount class >> generateIndexHtml [
 ]
 
 { #category : #accessing }
+MoldedGithubAccount class >> ghGetSton: url [
+	^STON fromString: (ZnEasy get: url) contents
+]
+
+{ #category : #accessing }
 MoldedGithubAccount class >> myClone [
 	^ FileSystem workingDirectory parent
 ]
@@ -64,12 +69,8 @@ MoldedGithubAccount class >> myIndexHtml [
 
 { #category : #accessing }
 MoldedGithubAccount class >> refreshRepositories [
-	repositories :=
-			(STON
-				fromString:
-					(ZnClient new
-						url: 'https://api.github.com/users/markfirmware/repos?per_page=100';
-						get)).
+	repositories := (self ghGetSton: 'https://api.github.com/users/markfirmware/repos?per_page=100')
+				sort: [ :a :b | (a at: #name) < (b at: #name)]
 ]
 
 { #category : #accessing }
