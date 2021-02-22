@@ -8,53 +8,104 @@ Class {
 }
 
 { #category : #accessing }
-MoldedGithubAccount class >> generateIndexHtml [
+MoldedGithubAccount class >> _: h [
+	^ h
+		tag: #ol
+		class: 'list-decimal list-inside'
+		do: [ self repositories
+				do: [ :r | 
+					h
+						tag: #li
+						class: 'mx-4'
+						do: [ h
+								tag: #a
+								attributes:
+									{#class.
+									#underline.
+									#href.
+									(r at: #html_url)}
+								with: (r at: #name) ] ] ]
+]
 
-    self myIndexHtml writeStreamDo: [ :s | | h |
-    	s truncate.
-		h := ZnHtmlOutputStream on: s.
-		h html5.
-		h tag: #html do: [ 
-			h tag: #head do: [
-				h tag: #meta attributes: #(charset 'UTF-8').
-        		h tag: #meta attributes: #(name viewport content 'width=device-width, initial-scale=1.0').
-        		h tag: #link attributes: #(href 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel stylesheet).
-        		h openTag: #script attribute: #src value: 'https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js'.
-        		h closeTag: #script.
-        		h openTag: #script attribute: #src value: 'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'.
-        		h closeTag: #script
-			].
-			h tag: #body class: 'font-mono' do: [
-				h tag: #div with:
-					'This is an alpinejs/tailwindcss page that presents a molded github account (markfirmware.) It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'.
-				h tag: #div class: 'm-8' do: [
-					h tag: #div do: [
-						h tag: #span with: '1. clone '.
-						h
-							tag: #a
-							attributes: #(class underline href 'https://github.com/markfirmware/molded-github-account#molded-github-account')
-							with: 'molded-github-account'
-					].
-					h tag: #div with: '2. cd clone'.
-					h tag: #div with: '3. ./mold'
-				].
-				h tag: #div with: 'Repositories in account markfirmware:'.
-				h tag: #ol class: 'list-decimal list-inside' do: [
-					self repositories do: [ :r |
-						h tag: #li class: 'mx-4' do: [
-							h tag: #a attributes: { #class.  #underline. #href. r at: #html_url } with: (r at: #name)
-						]
-					]
-				]
-			]
-		]
-	].
-	^self myIndexHtml
+{ #category : #accessing }
+MoldedGithubAccount class >> generateIndexHtml [
+	self myIndexHtml
+		writeStreamDo: [ :s | 
+			| h |
+			s truncate.
+			h := ZnHtmlOutputStream on: s.
+			h html5.
+			h
+				tag: #html
+				do: [ h
+						tag: #head
+						do: [ h tag: #meta attributes: #(charset 'UTF-8').
+							h
+								tag: #meta
+								attributes: #(name viewport content 'width=device-width, initial-scale=1.0').
+							h
+								tag: #link
+								attributes:
+									#(href 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel stylesheet).
+							h
+								openTag: #script
+								attribute: #src
+								value:
+									'https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js'.
+							h closeTag: #script.
+							h
+								openTag: #script
+								attribute: #src
+								value: 'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'.
+							h closeTag: #script ].
+					h
+						tag: #body
+						class: 'font-mono'
+						do: [ h
+								tag: #div
+								with:
+									'This is an alpinejs/tailwindcss page that presents a molded github account (markfirmware.) It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'.
+							h
+								tag: #div
+								class: 'm-8'
+								do: [ h
+										tag: #div
+										do: [ h tag: #span with: '1. clone '.
+											h
+												tag: #a
+												attributes:
+													#(class underline href 'https://github.com/markfirmware/molded-github-account#molded-github-account')
+												with: 'molded-github-account' ].
+									h tag: #div with: '2. cd clone'.
+									h tag: #div with: '3. ./mold' ].
+							h tag: #div with: 'Repositories in account markfirmware:'.
+							self hMakeList: h ] ] ].
+	^ self myIndexHtml
 ]
 
 { #category : #accessing }
 MoldedGithubAccount class >> ghGetSton: url [
 	^STON fromString: (ZnEasy get: url) contents
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> hMakeList: h [
+	^ h
+		tag: #ol
+		class: 'list-decimal list-inside'
+		do: [ self repositories
+				do: [ :r | 
+					h
+						tag: #li
+						class: 'mx-8'
+						do: [ h
+								tag: #a
+								attributes:
+									{#class.
+									#underline.
+									#href.
+									(r at: #html_url)}
+								with: (r at: #name) ] ] ]
 ]
 
 { #category : #accessing }
