@@ -12,11 +12,13 @@ MoldedGithubAccount >> generateIndexHtml [
 		h html5.
 		h tag: #html do: [ 
 			h tag: #head do: [
-				h tag: #meta with: 'charset="UTF-8"'.
-        		h tag: #meta with: 'name="viewport" content="width=device-width, initial-scale=1.0"'.
-        		h tag: #link with: 'href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"'.
-        		h tag: #script with: 'src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js"'.
-				h tag: #script with: 'src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"'.
+				h tag: #meta attributes: #(charset 'UTF-8').
+        		h tag: #meta attributes: #(name viewport content 'width=device-width, initial-scale=1.0').
+        		h tag: #link attributes: #(href 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel stylesheet).
+        		h openTag: #script attribute: #src value: 'https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js'.
+        		h closeTag: #script.
+        		h openTag: #script attribute: #src value: 'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'.
+        		h closeTag: #script
 			].
 			h tag: #body class: 'font-mono' do: [
 				h tag: #div with:
