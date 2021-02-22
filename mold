@@ -5,27 +5,35 @@ GLAM=GlamorousToolkitLinux64-$VERSION
 
 if [[ ! -d $GLAM ]]
 then
+    exho
     echo installing $GLAM ...
     wget -q https://dl.feenk.com/gt/GlamorousToolkitLinux64-$VERSION.zip
     unzip -q Glamorous*.zip
     rm Glamorous*.zip
 fi
 
-cd $GLAM
-MISSING=$(ldd libSkia.so | grep "not found")
-if [[ "$MISSING" != "" ]]
-then
-    LIB=libstdc++.so.6
-    NEW_LIB=newer-libstdc++.so.6
-    LIB_FOLDER=/usr/lib/x86_64-linux-gnu
-    echo
-    echo must replace $LIB_FOLDER/$LIB with $NEW_LIB
-    echo
-    set -x
-    sudo cp docker/$NEW_LIB $LIB_FOLDER
-    sudo ln -sf $LIB_FOLDER/$NEW_LIB $LIB_FOLDER/libstdc++.so.6
-    set +x
-    echo
-fi
+pushd $GLAM >& /dev/null
 
-./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
+    MISSING=$(ldd libSkia.so | grep "not found")
+    if [[ "$MISSING" != "" ]]
+    then
+        LIB=libstdc++.so.6
+        NEW_LIB=newer-libstdc++.so.6
+        LIB_FOLDER=/usr/lib/x86_64-linux-gnu
+        echo
+        echo must replace $LIB_FOLDER/$LIB with $NEW_LIB
+        echo
+        set -x
+        sudo cp docker/$NEW_LIB $LIB_FOLDER
+        sudo ln -sf $LIB_FOLDER/$NEW_LIB $LIB_FOLDER/libstdc++.so.6
+        set +x
+        echo
+    fi
+
+    echo
+    echo start glamorous toolkit ...
+    ./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
+
+popd >_ /dev/null
+
+git status
