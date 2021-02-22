@@ -8,26 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-MoldedGithubAccount class >> _: h [
-	^ h
-		tag: #ol
-		class: 'list-decimal list-inside'
-		do: [ self repositories
-				do: [ :r | 
-					h
-						tag: #li
-						class: 'mx-4'
-						do: [ h
-								tag: #a
-								attributes:
-									{#class.
-									#underline.
-									#href.
-									(r at: #html_url)}
-								with: (r at: #name) ] ] ]
-]
-
-{ #category : #accessing }
 MoldedGithubAccount class >> generateIndexHtml [
 	self myIndexHtml
 		writeStreamDo: [ :s | 
