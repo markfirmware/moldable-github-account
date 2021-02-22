@@ -42,6 +42,11 @@ MoldedGithubAccount >> generateIndexHtml [
 ]
 
 { #category : #accessing }
+MoldedGithubAccount >> getRepos [
+Smalltalk at: #AccountRepos put: (STON fromString: (ZnClient new url: 'https://api.github.com/users/markfirmware/repos?per_page=100'; get))
+]
+
+{ #category : #accessing }
 MoldedGithubAccount >> myClone [
 	^ FileSystem workingDirectory parent
 ]
@@ -49,4 +54,9 @@ MoldedGithubAccount >> myClone [
 { #category : #accessing }
 MoldedGithubAccount >> myIndexHtml [
     ^ self myClone / 'docs' / 'index.html'
+]
+
+{ #category : #accessing }
+MoldedGithubAccount >> refreshRepos [
+Smalltalk at: #AccountRepos put: (STON fromString: (ZnClient new url: 'https://api.github.com/users/markfirmware/repos?per_page=100'; get)). ^Smalltalk at: #AccountRepos
 ]
