@@ -22,9 +22,16 @@ pushd $GLAM >& /dev/null
         LIB_FOLDER=/usr/lib/x86_64-linux-gnu
         echo
         echo must replace $LIB_FOLDER/$LIB with $NEW_LIB
+        echo this is a system-wide global library
         echo
+        read -p "replace the system library globally? " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]
+        then
+            exit 1
+        fi
         set -x
-        sudo cp docker/$NEW_LIB $LIB_FOLDER
+        sudo cp ../$NEW_LIB $LIB_FOLDER
         sudo ln -sf $LIB_FOLDER/$NEW_LIB $LIB_FOLDER/libstdc++.so.6
         set +x
         echo
