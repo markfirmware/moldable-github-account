@@ -17,49 +17,14 @@ MoldedGithubAccount class >> generateIndexHtml [
 			h html5.
 			h
 				tag: #html
-				do: [ h
-						tag: #head
-						do: [ h tag: #meta attributes: #(charset 'UTF-8').
-							h
-								tag: #meta
-								attributes: #(name viewport content 'width=device-width, initial-scale=1.0').
-							h
-								tag: #link
-								attributes:
-									#(href 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel stylesheet).
-							h
-								openTag: #script
-								attribute: #src
-								value:
-									'https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js'.
-							h closeTag: #script.
-							h
-								openTag: #script
-								attribute: #src
-								value: 'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'.
-							h closeTag: #script ].
+				do: [ self hHead: h.
 					h
 						tag: #body
 						class: 'font-mono'
-						do: [ h
-								tag: #div
-								with:
-									'This is an alpinejs/tailwindcss page that presents a molded github account (markfirmware.) It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'.
-							h
-								tag: #div
-								class: 'm-8'
-								do: [ h
-										tag: #div
-										do: [ h tag: #span with: '1. clone '.
-											h
-												tag: #a
-												attributes:
-													#(class underline href 'https://github.com/markfirmware/molded-github-account#molded-github-account')
-												with: 'molded-github-account' ].
-									h tag: #div with: '2. cd clone'.
-									h tag: #div with: '3. ./mold' ].
+						do: [ self hIntroduction: h.
+							self hInstructions: h.
 							h tag: #div with: 'Repositories in account markfirmware:'.
-							self hMakeList: h ] ] ].
+							self hRepositories: h ] ] ].
 	^ self myIndexHtml
 ]
 
@@ -69,7 +34,57 @@ MoldedGithubAccount class >> ghGetSton: url [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> hMakeList: h [
+MoldedGithubAccount class >> hHead: h [
+	h
+		tag: #head
+		do: [ h tag: #meta attributes: #(charset 'UTF-8').
+			h
+				tag: #meta
+				attributes: #(name viewport content 'width=device-width, initial-scale=1.0').
+			h
+				tag: #link
+				attributes:
+					#(href 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' rel stylesheet).
+			h
+				openTag: #script
+				attribute: #src
+				value:
+					'https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/index.min.js'.
+			h closeTag: #script.
+			h
+				openTag: #script
+				attribute: #src
+				value: 'https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js'.
+			h closeTag: #script ]
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> hInstructions: h [
+	h
+		tag: #div
+		class: 'm-8'
+		do: [ h
+				tag: #div
+				do: [ h tag: #span with: '1. clone '.
+					h
+						tag: #a
+						attributes:
+							#(class underline href 'https://github.com/markfirmware/molded-github-account#molded-github-account')
+						with: 'molded-github-account' ].
+			h tag: #div with: '2. cd clone'.
+			h tag: #div with: '3. ./mold' ]
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> hIntroduction: h [
+	h
+		tag: #div
+		with:
+			'This is an alpinejs/tailwindcss page that presents a molded github account (markfirmware.) It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> hRepositories: h [
 	^ h
 		tag: #ol
 		class: 'list-decimal list-inside'
