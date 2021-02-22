@@ -8,6 +8,7 @@ Class {
 MoldedGithubAccount >> generateIndexHtml [
 
     self myIndexHtml writeStreamDo: [ :s | | h |
+    	s truncate.
 		h := ZnHtmlOutputStream on: s.
 		h html5.
 		h tag: #html do: [ 
