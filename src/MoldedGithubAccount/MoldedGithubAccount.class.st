@@ -39,7 +39,7 @@ MoldedGithubAccount class >> generateIndexHtml [
 					h tag: #div with: '3. ./mold'
 				].
 				h tag: #div with: 'Repositories in account markfirmware:'.
-				h tag: #ol class: 'list-decimal list-outside' do: [
+				h tag: #ol class: 'list-decimal list-inside' do: [
 					self repositories do: [ :r |
 						h tag: #li class: 'mx-4' do: [
 							h tag: #a attributes: { #class.  #underline. #href. r at: #html_url } with: (r at: #name)
