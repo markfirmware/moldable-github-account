@@ -1,11 +1,14 @@
 Class {
 	#name : #MoldedGithubAccount,
 	#superclass : #Object,
+	#classInstVars : [
+		'repositories'
+	],
 	#category : #MoldedGithubAccount
 }
 
 { #category : #accessing }
-MoldedGithubAccount >> generateIndexHtml [
+MoldedGithubAccount class >> generateIndexHtml [
 
     self myIndexHtml writeStreamDo: [ :s | | h |
     	s truncate.
@@ -37,7 +40,7 @@ MoldedGithubAccount >> generateIndexHtml [
 				].
 				h tag: #div with: 'Repositories in account markfirmware:'.
 				h tag: #ol do: [
-					(Smalltalk at: #AccountRepos) do: [ :r |
+					self repositories do: [ :r |
 						h tag: #li do: [
 							h tag: #a attributes: { #class.  #underline. #href. r at: #html_url } with: (r at: #name)
 						]
@@ -50,16 +53,26 @@ MoldedGithubAccount >> generateIndexHtml [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount >> myClone [
+MoldedGithubAccount class >> myClone [
 	^ FileSystem workingDirectory parent
 ]
 
 { #category : #accessing }
-MoldedGithubAccount >> myIndexHtml [
+MoldedGithubAccount class >> myIndexHtml [
     ^ self myClone / 'docs' / 'index.html'
 ]
 
 { #category : #accessing }
-MoldedGithubAccount >> refreshRepos [
-Smalltalk at: #AccountRepos put: (STON fromString: (ZnClient new url: 'https://api.github.com/users/markfirmware/repos?per_page=100'; get)). ^Smalltalk at: #AccountRepos
+MoldedGithubAccount class >> refreshRepositories [
+	repositories :=
+			(STON
+				fromString:
+					(ZnClient new
+						url: 'https://api.github.com/users/markfirmware/repos?per_page=100';
+						get)).
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> repositories [
+    ^repositories ifNil:  [ repositories := OrderedCollection new ]
 ]
