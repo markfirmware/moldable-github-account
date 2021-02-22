@@ -27,4 +27,4 @@ then
     echo
 fi
 
-./glamoroustoolkit GlamorousToolkit.image --no-quit --interactive
+./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
