@@ -35,10 +35,11 @@ MoldedGithubAccount >> generateIndexHtml [
 					h tag: #div with: '2. cd clone'.
 					h tag: #div with: '3. ./mold'
 				].
+				h tag: #div with: 'Repositories in account markfirmware:'.
 				h tag: #ol do: [
 					(Smalltalk at: #AccountRepos) do: [ :r |
 						h tag: #li do: [
-							h tag: #span with: (r at: #name)
+							h tag: #a attributes: { #class.  #underline. #href. r at: #html_url } with: (r at: #name)
 						]
 					]
 				]
@@ -46,11 +47,6 @@ MoldedGithubAccount >> generateIndexHtml [
 		]
 	].
 	^self myIndexHtml
-]
-
-{ #category : #accessing }
-MoldedGithubAccount >> getRepos [
-Smalltalk at: #AccountRepos put: (STON fromString: (ZnClient new url: 'https://api.github.com/users/markfirmware/repos?per_page=100'; get))
 ]
 
 { #category : #accessing }
