@@ -39,9 +39,9 @@ MoldedGithubAccount class >> generateIndexHtml [
 					h tag: #div with: '3. ./mold'
 				].
 				h tag: #div with: 'Repositories in account markfirmware:'.
-				h tag: #ol do: [
+				h tag: #ol class: 'list-decimal list-outside' do: [
 					self repositories do: [ :r |
-						h tag: #li do: [
+						h tag: #li class: 'mx-4' do: [
 							h tag: #a attributes: { #class.  #underline. #href. r at: #html_url } with: (r at: #name)
 						]
 					]
@@ -75,4 +75,13 @@ MoldedGithubAccount class >> refreshRepositories [
 { #category : #accessing }
 MoldedGithubAccount class >> repositories [
     ^repositories ifNil:  [ repositories := OrderedCollection new ]
+]
+
+{ #category : #accessing }
+MoldedGithubAccount class >> serveIndexHtml [
+ZnServer startDefaultOn: 8080.
+ZnServer default delegate:
+	(ZnStaticFileServerDelegate new
+		directory: '../docs' asFileReference;
+		yourself)
 ]
