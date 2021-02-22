@@ -34,6 +34,13 @@ MoldedGithubAccount >> generateIndexHtml [
 					].
 					h tag: #div with: '2. cd clone'.
 					h tag: #div with: '3. ./mold'
+				].
+				h tag: #ol do: [
+					(Smalltalk at: #AccountRepos) do: [ :r |
+						h tag: #li do: [
+							h tag: #span with: (r at: #name)
+						]
+					]
 				]
 			]
 		]
