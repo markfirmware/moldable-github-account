@@ -37,7 +37,8 @@ MoldedGithubAccount >> generateIndexHtml [
 				]
 			]
 		]
-	]
+	].
+	^self myIndexHtml
 ]
 
 { #category : #accessing }
