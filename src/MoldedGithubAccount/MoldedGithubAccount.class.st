@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #accessing }
+MoldedGithubAccount class >> accountOwnerName [
+^((IceRepository registry
+    detect: [ :repo | repo location = '..' asFileReference]) remotes detect: [ :r | r name = 'origin' ]) owner
+]
+
+{ #category : #accessing }
 MoldedGithubAccount class >> generateIndexHtml [
 	self myIndexHtml
 		writeStreamDo: [ :s | 
@@ -85,7 +91,7 @@ MoldedGithubAccount class >> hIntroduction: h [
 		tag: #div
 		class: 'my-4'
 		with:
-			'The Glamorous Toolkit can mold software - this produces molded software. When an entire github account of repositories is so molded, you have a molded github account. This repo represents a molded github account. Which account? The account in which this repo resides.'
+			'The Glamorous Toolkit can mold software - this produces molded software. When an entire github account of repositories is so molded, you have a molded github account. This repo represents a molded github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
 ]
 
 { #category : #accessing }
