@@ -91,8 +91,18 @@ MoldableGithubAccount class >> hIntroduction: h [
 			'This is an alpinejs/tailwindcss page that presents a moldable github account. It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.';
 		tag: #div
 		class: 'my-4'
-		with:
-			'The Glamorous Toolkit provides a moldable experience. When an entire github account of repositories is moldable, you have a moldable github account. This repo represents a moldable github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
+		do: [
+		h tag: #span
+		with: 'The Glamorous Toolkit provides a '.
+	self hLink: h text: 'moldable experience' to: 'https://moldabledevelopment.com'.
+	h
+		tag: #span with: '. When an entire github account of repositories is moldable, you have a moldable github account. This repo represents a moldable github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)']
+]
+
+{ #category : #accessing }
+MoldableGithubAccount class >> hLink: h text: text to: url [
+h tag: #a attributes: {#class. #underline. #href. url}
+with: text
 ]
 
 { #category : #accessing }
