@@ -1,20 +1,21 @@
 Class {
-	#name : #MoldedGithubAccount,
+	#name : #MoldableGithubAccount,
 	#superclass : #Object,
 	#classInstVars : [
 		'repositories'
 	],
-	#category : #MoldedGithubAccount
+	#category : #MoldableGithubAccount
 }
 
 { #category : #accessing }
-MoldedGithubAccount class >> accountOwnerName [
-^((IceRepository registry
-    detect: [ :repo | repo location = '..' asFileReference]) remotes detect: [ :r | r name = 'origin' ]) owner
+MoldableGithubAccount class >> accountOwnerName [
+	^ ((IceRepository registry
+		detect: [ :repo | repo location = '..' asFileReference ]) remotes
+		detect: [ :r | r name = 'origin' ]) owner
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> generateIndexHtml [
+MoldableGithubAccount class >> generateIndexHtml [
 	self myIndexHtml
 		writeStreamDo: [ :s | 
 			| h |
@@ -35,12 +36,12 @@ MoldedGithubAccount class >> generateIndexHtml [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> ghGetSton: url [
+MoldableGithubAccount class >> ghGetSton: url [
 	^STON fromString: (ZnEasy get: url) contents
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> hHead: h [
+MoldableGithubAccount class >> hHead: h [
 	h
 		tag: #head
 		do: [ h tag: #meta attributes: #(charset 'UTF-8').
@@ -65,7 +66,7 @@ MoldedGithubAccount class >> hHead: h [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> hInstructions: h [
+MoldableGithubAccount class >> hInstructions: h [
 	h
 		tag: #div
 		class: 'm-8'
@@ -75,14 +76,14 @@ MoldedGithubAccount class >> hInstructions: h [
 					h
 						tag: #a
 						attributes:
-							#(class underline href 'https://github.com/markfirmware/molded-github-account#molded-github-account')
+							#(class underline href 'https://github.com/', self accountOwnerName, '/molded-github-account#molded-github-account')
 						with: 'molded-github-account' ].
 			h tag: #div with: '2. cd clone'.
 			h tag: #div with: '3. ./mold' ]
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> hIntroduction: h [
+MoldableGithubAccount class >> hIntroduction: h [
 	h
 		tag: #div
 		class: 'my-4'
@@ -95,7 +96,7 @@ MoldedGithubAccount class >> hIntroduction: h [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> hRepositories: h [
+MoldableGithubAccount class >> hRepositories: h [
 	^ h
 		tag: #ol
 		class: 'list-decimal list-inside'
@@ -115,28 +116,28 @@ MoldedGithubAccount class >> hRepositories: h [
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> myClone [
+MoldableGithubAccount class >> myClone [
 	^ FileSystem workingDirectory parent
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> myIndexHtml [
+MoldableGithubAccount class >> myIndexHtml [
     ^ self myClone / 'docs' / 'index.html'
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> refreshRepositories [
-	repositories := (self ghGetSton: 'https://api.github.com/users/markfirmware/repos?per_page=100')
+MoldableGithubAccount class >> refreshRepositories [
+	repositories := (self ghGetSton: 'https://api.github.com/users/', self accountOwnerName, '/repos?per_page=100')
 				sort: [ :a :b | (a at: #name) < (b at: #name)]
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> repositories [
+MoldableGithubAccount class >> repositories [
     ^repositories ifNil:  [ repositories := OrderedCollection new ]
 ]
 
 { #category : #accessing }
-MoldedGithubAccount class >> serveIndexHtml [
+MoldableGithubAccount class >> serveIndexHtml [
 ZnServer startDefaultOn: 8080.
 ZnServer default delegate:
 	(ZnStaticFileServerDelegate new
