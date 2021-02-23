@@ -80,7 +80,10 @@ MoldedGithubAccount class >> hIntroduction: h [
 	h
 		tag: #div
 		with:
-			'This is an alpinejs/tailwindcss page that presents a molded github account (markfirmware.) It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'
+			'This is an alpinejs/tailwindcss page that presents a molded github account. It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.'
+		tag: #div
+		with:
+			'The Glamorous Toolkit can mold software - this produces molded software. When an entire github account of repositories is so molded, you have a molded github account. This repo represents a molded github account. Which account? The account in which this repo resides.'
 ]
 
 { #category : #accessing }
