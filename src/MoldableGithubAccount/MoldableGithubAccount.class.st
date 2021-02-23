@@ -76,8 +76,8 @@ MoldableGithubAccount class >> hInstructions: h [
 					h
 						tag: #a
 						attributes:
-							#(class underline href 'https://github.com/', self accountOwnerName, '/molded-github-account#molded-github-account')
-						with: 'molded-github-account' ].
+							#(class underline href 'https://github.com/', self accountOwnerName, '/moldable-github-account#moldable-github-account')
+						with: 'moldable-github-account' ].
 			h tag: #div with: '2. cd clone'.
 			h tag: #div with: '3. ./mold' ]
 ]
@@ -88,11 +88,11 @@ MoldableGithubAccount class >> hIntroduction: h [
 		tag: #div
 		class: 'my-4'
 		with:
-			'This is an alpinejs/tailwindcss page that presents a molded github account. It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.';
+			'This is an alpinejs/tailwindcss page that presents a moldable github account. It is produced by gtoolkit and will eventually probably contain pillar/xdoc content.';
 		tag: #div
 		class: 'my-4'
 		with:
-			'The Glamorous Toolkit can mold software - this produces molded software. When an entire github account of repositories is so molded, you have a molded github account. This repo represents a molded github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
+			'The Glamorous Toolkit a moldable software experience. When an entire github account of repositories is moldable, you have a moldable github account. This repo represents a moldable github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
 ]
 
 { #category : #accessing }
