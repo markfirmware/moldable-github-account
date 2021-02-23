@@ -76,7 +76,7 @@ MoldableGithubAccount class >> hInstructions: h [
 					h
 						tag: #a
 						attributes:
-							#(class underline href 'https://github.com/', self accountOwnerName, '/moldable-github-account#moldable-github-account')
+							{#class. #underline. #href. 'https://github.com/', self accountOwnerName, '/moldable-github-account#moldable-github-account'}
 						with: 'moldable-github-account' ].
 			h tag: #div with: '2. cd clone'.
 			h tag: #div with: '3. ./mold' ]
@@ -92,7 +92,7 @@ MoldableGithubAccount class >> hIntroduction: h [
 		tag: #div
 		class: 'my-4'
 		with:
-			'The Glamorous Toolkit a moldable software experience. When an entire github account of repositories is moldable, you have a moldable github account. This repo represents a moldable github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
+			'The Glamorous Toolkit provides a moldable experience. When an entire github account of repositories is moldable, you have a moldable github account. This repo represents a moldable github account. Which account? The account in which this repo resides (', self accountOwnerName, '.)'
 ]
 
 { #category : #accessing }
