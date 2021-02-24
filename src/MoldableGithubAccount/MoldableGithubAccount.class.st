@@ -67,6 +67,10 @@ MoldableGithubAccount class >> hHead: h [
 
 { #category : #accessing }
 MoldableGithubAccount class >> hInstructions: h [
+	h tag: #div
+		class: 'm-8'
+		do: [		h			tag: #span			with: 'Imstead of cloning this repo to your desktop, the following link can provide a cloud workspace in your browser: '.		self			hLink: h text: 'open moldable-github-account in gitpod' to: 'https://gitpod.io#CUSTOM_XVFB_WxHxD=1200x900x16/https://github.com/markfirmware/moldable-github-account'.
+		].
 	h
 		tag: #div
 		class: 'm-8'
@@ -78,7 +82,7 @@ MoldableGithubAccount class >> hInstructions: h [
 						attributes:
 							{#class. #underline. #href. 'https://github.com/', self accountOwnerName, '/moldable-github-account#moldable-github-account'}
 						with: 'moldable-github-account' ].
-			h tag: #div with: '2. cd clone'.
+			h tag: #div with: '2. cd moldable-github-account'.
 			h tag: #div with: '3. ./mold' ]
 ]
 
