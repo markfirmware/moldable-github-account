@@ -17,13 +17,24 @@ pushd $GLAM >& /dev/null
     MISSING=$(ldd libSkia.so | grep "not found")
     if [[ "$MISSING" != "" ]]
     then
-        echo must replace package libstdcc++6 with a newer one from 20.04
+        echo need updated libstdc++
+        echo
+        read -p "instsll ? " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]
+        then
             exit 1
-    fi
-
-    echo
-    echo starting $GLAM
-    ./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
+       fi
+       set -x
+       sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+       sudo apt-get install -y g++-10
+       set +x
+       echo
+   fi
+    
+   echo
+   echo starting $GLAM
+   ./glamoroustoolkit GlamorousToolkit.image st ../load.st --no-quit --interactive
 
 popd >& /dev/null
 
